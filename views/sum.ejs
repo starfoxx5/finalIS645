@@ -17,7 +17,7 @@
       <td><label for="eNumber">Enter Ending Number</label>:</td>
       <td>
         <input type="number" name="eNumber" id="eNumber" required <% if (type
-        === "post") { %> value="<%= prod.cusFname %>" <% } %>/>
+        === "post") %>/>
       </td>
       <td>(required)</td>
     </tr>
@@ -25,7 +25,7 @@
       <td><label for="addNumber">Enter Increment</label>:</td>
       <td>
         <input type="number" name="addNumber" id="addNumber" required <% if
-        (type === "post") { %> value="<%= prod.cusLname %>" <% } %>/>
+        (type === "post") %>/>
       </td>
       <td>(required)</td>
     </tr>
@@ -41,7 +41,7 @@
   </table>
 </form>
 <% if (type === "post") { %> <% if (error === "false") { %>
-<h3>New Customer Created!</h3>
+<h3>The sum of the numbers from</h3>
 <% } else { %>
 <h3 color="red">Ending number must be less than starting number</h3>
 <p><%= error %></p>

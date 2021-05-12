@@ -55,19 +55,15 @@ const insertBook = (book) => {
     });
 };
 
-// const sumNumbers = (sum) ={
-//   var total = 0;
-//   for (var i =0; i < arguments.length; i++){
-//     var num = parseFloat(arguments[i])
-
-//     if(isNaN(num) === false) {
-//       total +=num
-//     }
-//   }
-//   return total
-// }
+function addNums() {
+  var a, b, c;
+  a = Number(document.getElementById("sNumber").value);
+  b = Number(document.getElementById("eNumber").value);
+  c = a + b;
+  document.getElementById("addNumber").value = c;
+}
 
 // Add this at the bottom
 module.exports.insertBook = insertBook;
 module.exports.getTotalRecords = getTotalRecords;
-// module.exports.sumNumbers = sumNumbers;
+module.exports.addNums = addNums;

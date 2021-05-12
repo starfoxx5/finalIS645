@@ -65,7 +65,7 @@ app.get("/import", async (req, res) => {
 
 app.post("/sum", async (req, res) => {
   dblib
-    .insertCustomer(req.body)
+    .addNums(req.body)
     .then((result) => {
       if (result.trans === "success") {
         res.render("create", {
