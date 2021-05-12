@@ -1,0 +1,48 @@
+<%- include("_header") -%>
+
+<h2>Calculate Sum of a Series</h2>
+
+<!-- Not using bootstrap, just a simple form that you may enhance -->
+<form action="/sum" method="POST">
+  <table>
+    <tr>
+      <td><label for="sNumber">Enter Starting Number</label>:</td>
+      <td>
+        <input type="number" name="sNumber" id="sNumber" required <% if (type
+        === "post") %> />
+      </td>
+      <td>(required)</td>
+    </tr>
+    <tr>
+      <td><label for="eNumber">Enter Ending Number</label>:</td>
+      <td>
+        <input type="number" name="eNumber" id="eNumber" required <% if (type
+        === "post") { %> value="<%= prod.cusFname %>" <% } %>/>
+      </td>
+      <td>(required)</td>
+    </tr>
+    <tr>
+      <td><label for="addNumber">Enter Increment</label>:</td>
+      <td>
+        <input type="number" name="addNumber" id="addNumber" required <% if
+        (type === "post") { %> value="<%= prod.cusLname %>" <% } %>/>
+      </td>
+      <td>(required)</td>
+    </tr>
+    <tr>
+      <td span="2">
+        <input
+          type="submit"
+          value="Calculate Sum"
+          class="btn btn-primary btn-sm"
+        />
+      </td>
+    </tr>
+  </table>
+</form>
+<% if (type === "post") { %> <% if (error === "false") { %>
+<h3>New Customer Created!</h3>
+<% } else { %>
+<h3 color="red">Ending number must be less than starting number</h3>
+<p><%= error %></p>
+<%} %> <%} %> <%- include("_footer") -%>

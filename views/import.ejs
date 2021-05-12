@@ -1,0 +1,97 @@
+<%- include("_header") -%>
+
+<h1>Import Books</h1>
+<br />
+
+<h4>Total number of books in the database: <%= totRecs %></h4>
+<br />
+
+<h4>Select a file with books for Database insert</h4>
+<form enctype="multipart/form-data" action="./import" method="POST">
+  <input
+    type="file"
+    id="bookImport"
+    name="filename"
+    required
+    class="btn btn-sm"
+  />
+  <p></p>
+  <input type="submit" value="Import Books" class="btn btn-primary btn-sm" />
+</form>
+<h2 id="waiting" style="display: none">Waiting for Results</h2>
+<div id="result" style="display: none">
+  <h2>Import Summary</h2>
+  <p>
+    <b> Initial number of books in the database:</b>
+    <span id="recordsInitial"></span>
+  </p>
+  <p><b> Books Inserted Successfully:</b> <span id="recordsInserted"></span></p>
+  <p>
+    <b> Resulting number of books in the database:</b>
+    <span id="recordsProcessed"></span>
+  </p>
+
+  <h2>Error Summary</h2>
+  <p>
+    <b> Total Book Records Processed:</b> <span id="recordsProcessed"></span>
+  </p>
+  <p><b> Number of Books Not Inserted:</b> <span id="recordsFailed"></span></p>
+  <p><b> Errors: </b></p>
+  <p id="errorList"></p>
+</div>
+<script>
+  document.querySelector("form").addEventListener("submit", (e) => {
+    // Cancel default behavior of sending a synchronous POST request
+    e.preventDefault();
+    document.getElementById("waiting").style.display = "";
+    // const formData = {
+    //   filename: document.getElementById("cusImport").value,
+    // };
+    const formData = new FormData(e.target);
+    console.log(formData.get("filename"));
+  });
+</script>
+<script>
+  // Typically, if the script is large, we place it in a separate file
+  //   For demonstrations, it is included in the same file.
+  // Handle form submission
+  document.querySelector("form").addEventListener("submit", (e) => {
+    // Cancel default behavior of sending a synchronous POST request
+    e.preventDefault();
+    document.getElementById("waiting").style.display = "";
+    // const formData = {
+    //   filename: document.getElementById("cusImport").value,
+    // };
+
+    // Create a FormData object, passing the form as a parameter
+    const formData = new FormData(e.target);
+
+    // Send form data to the server with an asynchronous POST request
+
+    fetch("/import", {
+      method: "POST",
+      // don't use GET
+      body: formData,
+    })
+      .then((response) => response.json())
+      // .then(console.log);
+      .then((data) => {
+        document.getElementById("waiting").style.display = "none";
+        document.getElementById("result").style.display = "";
+        // document.getElementById("recordsInitial").textContent = data.<%= totRecs %>;
+        document.getElementById("recordsProcessed").textContent =
+          data.numInserted + data.numFailed;
+        document.getElementById("recordsInserted").textContent =
+          data.numInserted;
+        document.getElementById("recordsFailed").textContent = data.numFailed;
+        let errorList = document.getElementById("errorList");
+        for (let error of data.errorMessage) {
+          let newError = document.createElement("p");
+          newError.textContent = error;
+          errorList.appendChild(newError);
+        }
+      });
+  });
+</script>
+
+<%- include("_footer") -%>
