@@ -10,7 +10,7 @@ const pool = new Pool({
 });
 
 const getTotalRecords = () => {
-  sql = "SELECT COUNT(*) FROM customer";
+  sql = "SELECT COUNT(*) FROM book";
   return pool
     .query(sql)
     .then((result) => {
